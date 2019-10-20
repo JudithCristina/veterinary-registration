@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import
+import uuid from 'uuid';
 
 class NuevaCita extends Component {
     state = { 
@@ -36,16 +36,24 @@ class NuevaCita extends Component {
             });
             return;
          }
+         //generar objetos ocn los datos
+         const nuevaCita = { ...this.state.cita};
+         nuevaCita.id = uuid()
          //Agregar la cita del estate en App
-         this.props.crearNuevaCita(this.state.cita)
+         this.props.crearNuevaCita(nuevaCita)
         }
     render() { 
+       // extraer valor del state
+       const {error} = this.state;
+
         return ( 
            <div className="card mt-5 py-5">
                <div className="card-body">
                 <h2 className="card-tittle text-center mb-5">
                   Llena el formulario para crear una cita
                 </h2>
+
+                {error ? <div className="alert alert-danger mt-2 mb-5 text-center">Todos los campos son obligatorios </div> : null}
                  <form
                  onSubmit={this.handleSubmit}
                  >
