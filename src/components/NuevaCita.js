@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import PropTypes from 'prop-types';
+const stateInicial = {
+    cita:{
+        mascota :'',
+        propietario : '',
+        fecha : '',
+        hora : '',
+        sintomas : ''
 
+    },
+    error: false
+}
 class NuevaCita extends Component {
-    state = { 
-        cita:{
-            mascota :'',
-            propietario : '',
-            fecha : '',
-            hora : '',
-            sintomas : ''
-
-        },
-        error: false
-     }
+    state = { ...stateInicial}
 
      handleChange = e => {
          this.setState({
@@ -41,6 +42,8 @@ class NuevaCita extends Component {
          nuevaCita.id = uuid()
          //Agregar la cita del estate en App
          this.props.crearNuevaCita(nuevaCita)
+         //colocar en el state el stateInicial
+         this.setState({...stateInicial})
         }
     render() { 
        // extraer valor del state
@@ -124,5 +127,7 @@ class NuevaCita extends Component {
          );
     }
 }
- 
+ NuevaCita.propTypes = {
+     crearNuevaCita : PropTypes.func.isRequired
+ }
 export default NuevaCita;
